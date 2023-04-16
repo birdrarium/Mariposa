@@ -14,4 +14,9 @@ CREATE TABLE IF NOT EXISTS `Mariposa`.`butterflies` (
   ) 
 DEFAULT CHARACTER SET = utf8mb4;
 
+INSERT INTO `Mariposa`.`butterflies` 
+VALUES (1 ,"Acherontia Atropos", "Zmierzchnica Trupia Główka", "Ćma z rodziny zawisakowatych, jeden z trzech gatunków rodzaju Acherontia. Na tułowiu ma charakterystyczny wzór przypominający czaszkę, któremu zawdzięcza swoją nazwę."), 
+(2 ,"Actias Luna", "Księżycówka amerykańska", "Nocny motyl należący do rodziny Saturniidae. Charakteryzuje się jasnozielonym ubarwieniem oraz obecnością przyoczek na przednich i tylnych skrzydłach. Gatunek ten występuje na terenach zalesionych i wydaje się preferować lasy dobrze zdrenowane. Dorosłych przyciąga światło.");
 
+
+Select * from Mariposa.butterflies;

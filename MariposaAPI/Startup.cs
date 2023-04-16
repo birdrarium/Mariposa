@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MySqlConnector;
 
+
 namespace MariposaAPI
 {
     public class Startup
@@ -30,9 +31,6 @@ namespace MariposaAPI
             services.AddControllers();
 
             services.AddTransient<MySqlConnection>(_ => new MySqlConnection(Configuration["ConnectionStrings:Default"]));
-
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +42,8 @@ namespace MariposaAPI
             }
 
             app.UseHttpsRedirection();
+
+            app.UsePathBase("/api");
 
             app.UseRouting();
 

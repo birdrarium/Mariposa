@@ -2,7 +2,7 @@
 
 namespace MariposaAPI.Models
 {
-    public class ButterflyModel
+    public class ButterflyModel 
     {
         public int Id { get; set; }
         public string LatinName { get; set; }

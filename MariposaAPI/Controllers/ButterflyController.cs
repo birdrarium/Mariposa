@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MariposaAPI.Models;
+using MySqlConnector;
+using Dapper;
 
 namespace MariposaAPI.Controllers
 {
@@ -12,19 +14,33 @@ namespace MariposaAPI.Controllers
     [Route("[controller]")]
     public class ButterflyController : ControllerBase
     {
+        private readonly MySqlConnection database;
         private readonly ILogger<ButterflyController> _logger;
 
-        public ButterflyController(ILogger<ButterflyController> logger)
+        public ButterflyController(ILogger<ButterflyController> logger, MySqlConnection mySql)
         {
             _logger = logger;
+            database = mySql;
+
         }
 
         [HttpGet]
-        public ButterflyModel GetButterflyModel()
+        public List<ButterflyModel> RunSelectQueryForButterflyModel()
         {
-            return new ButterflyModel(1, "","","");
+            var metadata = new List<ButterflyModel>();
+            try 
+            {
+                var stm = "SELECT * from Butterflies";
+                database.Open();
+                metadata = database.Query<ButterflyModel>(stm).ToList();
+                database.Close();
+            }
+            catch (Exception ex)
+            {
+                ex.ToString();
+            }
+            return metadata;
         }
-
 
     }
 }

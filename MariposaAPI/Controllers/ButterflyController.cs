@@ -65,10 +65,12 @@ namespace MariposaAPI.Controllers
                 VALUES (@LatinName, @PolishName, @Description);";
             database.Open();
             var result = database.Execute(query, new { butterfly.LatinName, butterfly.PolishName, butterfly.Description });
+
+            //Check last id
             //query = "SELECT AUTO_INCREMENT FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = \"Mariposa\" AND TABLE_NAME = \"butterflies\";";
             //var inc = database.ExecuteScalarAsync(query);
             database.Close();
-            return Ok(butterfly);
+            return Ok(butterfly); 
         }
 
     }

@@ -408,3 +408,6 @@ ASALocalRun/
 appsettings.json
 appsettings.Development.json
 
+# Mobile app
+Mariposa/*
+

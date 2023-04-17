@@ -21,26 +21,35 @@ namespace MariposaAPI.Controllers
         {
             _logger = logger;
             database = mySql;
-
         }
 
         [HttpGet]
-        public List<ButterflyModel> RunSelectQueryForButterflyModel()
+        public List<ButterflyModel> GetAll()
         {
             var metadata = new List<ButterflyModel>();
-            try 
-            {
-                var stm = "SELECT * from Butterflies";
-                database.Open();
-                metadata = database.Query<ButterflyModel>(stm).ToList();
-                database.Close();
-            }
-            catch (Exception ex)
-            {
-                ex.ToString();
-            }
+            var query = "SELECT * from Butterflies";
+            database.Open();
+            metadata = database.Query<ButterflyModel>(query).ToList();
+            database.Close();
             return metadata;
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<ButterflyModel> GetById(int id)
+        {
+            try
+            {
+                var query = "SELECT * from butterflies WHERE id = @id";
+                database.Open();
+                var result = database.Query<ButterflyModel>(query, new { id });
+                database.Close();
+                return result == null ? NotFound() : Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+
+        }
     }
 }

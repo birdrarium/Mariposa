@@ -1,10 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MariposaAPI.Models
 {
     public class ButterflyModel 
     {
         public int Id { get; set; }
+        [Required]
         public string LatinName { get; set; }
         public string PolishName { get; set; }
         public string Description { get; set; }

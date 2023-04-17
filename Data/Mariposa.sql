@@ -19,4 +19,5 @@ VALUES ("Acherontia Atropos", "Zmierzchnica Trupia Główka", "Ćma z rodziny za
 ("Actias Luna", "Księżycówka Amerykańska", "Nocny motyl należący do rodziny Saturniidae. Charakteryzuje się jasnozielonym ubarwieniem oraz obecnością przyoczek na przednich i tylnych skrzydłach. Gatunek ten występuje na terenach zalesionych i wydaje się preferować lasy dobrze zdrenowane. Dorosłych przyciąga światło.");
 
 
-Select * from Mariposa.butterflies;
+Select * from `Mariposa`.`butterflies`;
+SELECT AUTO_INCREMENT FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = "Mariposa" AND TABLE_NAME = "butterflies";

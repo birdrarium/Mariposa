@@ -51,5 +51,28 @@ namespace MariposaAPI.Controllers
             }
 
         }
+
+        [HttpPost]
+        public ActionResult<ButterflyModel> Post([FromBody] ButterflyModel butterfly)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var query =
+                @"INSERT INTO Mariposa.butterflies (LatinName, PolishName, Description)
+                VALUES (@LatinName, @PolishName, @Description);";
+            database.Open();
+            var result = database.Execute(query, new { butterfly.LatinName, butterfly.PolishName, butterfly.Description });
+            //query = "SELECT AUTO_INCREMENT FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = \"Mariposa\" AND TABLE_NAME = \"butterflies\";";
+            //var inc = database.ExecuteScalarAsync(query);
+            database.Close();
+            return Ok(butterfly);
+        }
+
     }
+
+
+   
 }

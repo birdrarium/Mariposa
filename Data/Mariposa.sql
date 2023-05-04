@@ -21,3 +21,31 @@ VALUES ("Acherontia Atropos", "Zmierzchnica Trupia Główka", "Ćma z rodziny za
 
 Select * from `Mariposa`.`butterflies`;
 SELECT AUTO_INCREMENT FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = "Mariposa" AND TABLE_NAME = "butterflies";
+
+CREATE TABLE IF NOT EXISTS `Mariposa`.`users` (
+  `UserId` INT NOT NULL AUTO_INCREMENT,
+  `UserName` VARCHAR(50) NOT NULL UNIQUE,
+  `UserPassword` VARCHAR(50) NOT NULL,
+  `PhotoURL` VARCHAR(3000) DEFAULT NULL,
+  PRIMARY KEY (`UserId`)
+  ) 
+DEFAULT CHARACTER SET = utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `Mariposa`.`posts`  (
+    `PostId` INT NOT NULL AUTO_INCREMENT,
+    `UserId` INT NOT NULL,
+    `Content` VARCHAR(5000) NOT NULL,
+    PRIMARY KEY (`PostId`),
+    FOREIGN KEY (`UserId`) REFERENCES `Mariposa`.`users`(`UserId`)
+)
+DEFAULT CHARACTER SET = utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `Mariposa`.`postImages`  (
+    `PostImageId` INT NOT NULL AUTO_INCREMENT,
+    `PostId` INT NOT NULL,
+    `ImageURL` VARCHAR(5000) NOT NULL,
+    PRIMARY KEY (`PostImageId`),
+    FOREIGN KEY (`PostId`) REFERENCES `Mariposa`.`posts`(`PostId`)
+)
+DEFAULT CHARACTER SET = utf8mb4;
+

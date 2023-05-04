@@ -12,36 +12,36 @@ namespace MariposaAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ButterflyController : ControllerBase
+    public class ButterflyAPIController : ControllerBase
     {
         private readonly MySqlConnection database;
-        private readonly ILogger<ButterflyController> _logger;
+        private readonly ILogger<ButterflyAPIController> _logger;
 
-        public ButterflyController(ILogger<ButterflyController> logger, MySqlConnection mySql)
+        public ButterflyAPIController(ILogger<ButterflyAPIController> logger, MySqlConnection mySql)
         {
             _logger = logger;
             database = mySql;
         }
 
         [HttpGet]
-        public List<ButterflyModel> GetAll()
+        public List<ButterflyAPIModel> GetAll()
         {
-            var metadata = new List<ButterflyModel>();
+            var metadata = new List<ButterflyAPIModel>();
             var query = "SELECT * from Butterflies";
             database.Open();
-            metadata = database.Query<ButterflyModel>(query).ToList();
+            metadata = database.Query<ButterflyAPIModel>(query).ToList();
             database.Close();
             return metadata;
         }
 
         [HttpGet("{id}")]
-        public ActionResult<ButterflyModel> GetById(int id)
+        public ActionResult<ButterflyAPIModel> GetById(int id)
         {
             try
             {
                 var query = "SELECT * from butterflies WHERE id = @id";
                 database.Open();
-                var result = database.Query<ButterflyModel>(query, new { id });
+                var result = database.Query<ButterflyAPIModel>(query, new { id });
                 database.Close();
                 return result == null ? NotFound() : Ok(result);
             }
@@ -53,7 +53,7 @@ namespace MariposaAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult<ButterflyModel> Post([FromBody] ButterflyModel butterfly)
+        public ActionResult<ButterflyAPIModel> Post([FromBody] ButterflyAPIModel butterfly)
         {
             if (!ModelState.IsValid)
             {

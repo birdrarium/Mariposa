@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WebApp.Models.ButterflyViewModel>
+
+@{
+    ViewBag.Title = "Butterflies";
+}
+
+<h2>Spis motyli</h2>
+
+<p>
+    @Html.ActionLink("Dodaj", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            L.p.
+        </th>
+        <th>
+            Polska nazwa
+        </th>
+        <th>
+            Łacińska nazwa
+        </th>
+        <th>
+            Opis
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @item.Id
+    </td>
+    <td>
+        @item.PolishName
+    </td>
+    <td>
+        @item.LatinName
+    </td>
+    <td>
+        @item.Description
+    </td>
+    <td>
+        @Html.ActionLink("Edytuj", "Edit", new { id = item.Id }) |
+        @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+    </td>
+</tr>
+    }
+
+</table>

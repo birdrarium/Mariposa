@@ -18,10 +18,12 @@
     <None Remove="Views\Account %28kopia%29\" />
     <None Remove="Microsoft.AspNetCore.Mvc" />
     <None Remove="MySql.Data" />
+    <None Remove="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Account\" />
     <Folder Include="Views\Butterfly\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />

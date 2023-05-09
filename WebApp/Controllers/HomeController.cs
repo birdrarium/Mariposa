@@ -15,26 +15,39 @@ namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        //public HttpClient client = new HttpClient();
-        //Uri baseAdress = new Uri("http://localhost:5001/api/");
+        HttpClient client;
+        Uri baseAdress = new Uri("https://localhost:5001/api/");
 
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
+        //public PostController()
         {
             _logger = logger;
+            client = new HttpClient();
+            client.BaseAddress = baseAdress;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
+            var postsList = new List<PostModel>();
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+            HttpResponseMessage getData = await client.GetAsync(client.BaseAddress + @"PostAPI");
 
+            if (getData.IsSuccessStatusCode)
+            {
+                string results = await getData.Content.ReadAsStringAsync();
+                postsList = JsonConvert.DeserializeObject<List<PostModel>>(results);
+            }
+            else
+            {
+                Console.WriteLine("Error calling WebAPI");
+            }
 
-        public IActionResult Privacy()
-        {
-            return View();
+            var viewModel = new HomeViewModel(postsList);
+            return View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -42,5 +55,6 @@ namespace WebApp.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }

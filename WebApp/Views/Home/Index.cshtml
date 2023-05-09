@@ -1,9 +1,37 @@
 ﻿@using System.Data
-@model DataTable 
+@model WebApp.Models.HomeViewModel
 @{
     ViewData["Title"] = "Home";
 }
 
-<h2>Index</h2>
+<h2>Tablica</h2>
 
-<p>Hello from our View Template!</p>
+<textarea class="text-form" rows="10"></textarea>
+<label>Załącznik</label>
+<input type="file" />
+<button>Wyślij</button>
+
+@*foreach (var post in Model.OrderByDescending(x => x.writingDate.Month).Select(x => x.writingDate))*@
+
+@foreach (var post in Model.Posts)
+{
+    <p>@post.CreatedDateTime.ToShortDateString()</p>
+    <div>
+        @post.UserId
+    </div>
+    <div>
+        @post.Content
+    </div>
+    <div>
+        @if (post.Images != null)
+        {
+            @foreach (var photo in post.Images)
+            {
+                @photo.ToString()
+            }
+        }
+
+    </div>
+}
+
+

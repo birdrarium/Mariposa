@@ -54,10 +54,19 @@ INSERT INTO `Mariposa`.`users` (`UserName`, `UserPassword`, `PhotoURL`)
 VALUES ("ButterflyEnthusiast","pass123","https://upload.wikimedia.org/wikipedia/commons/2/2d/Blue_Butterfly_Icon.png"),
 ("DragonFlyLover","password","https://images.vexels.com/media/users/3/157474/isolated/preview/9dee4169b45b7f58ba36b2af98aa74e1-monarch-butterfly-icon-butterfly.png");
 
-Select * from Users;
+Select UserId, UserName, PhotoURL from Users;
 
 INSERT INTO `Mariposa`.`posts` (`UserID`, `Content`, `CreatedDate`)
 VALUES (1, "Jeśli macie jakieś ciekawe historie, anegdoty lub wskazówki dotyczące fotografowania motyli, to również zapraszam do podzielenia się nimi. Czy macie jakieś sprawdzone metody, aby przyciągnąć motyle do swojego ogrodu? A może znacie jakieś ciekawe fakty o motylach, którymi możecie się z nami podzielić?", NOW()), 
 (2, "Chciałbym podzielić się z Wami moim zachwytem nad niezwykłą różnorodnością motyli, która istnieje na naszym pięknym świecie. Motyle to niesamowite stworzenia o niezwykłych kształtach, barwach i zachowaniach. Każdy gatunek jest unikalny i ma coś wyjątkowego do zaoferowania.", NOW());
 
-Select * from posts;
+
+INSERT INTO `Mariposa`.`posts` (`UserID`, `Content`, `CreatedDate`)
+VALUES (1, "Jeśli macie jakieś ciekawe historie, anegdoty lub wskazówki dotyczące fotografowania motyli, to również zapraszam do podzielenia się nimi. Czy macie jakieś sprawdzone metody, aby przyciągnąć motyle do swojego ogrodu? A może znacie jakieś ciekawe fakty o motylach, którymi możecie się z nami podzielić?", NOW());
+
+
+SELECT posts.UserId, posts.Content, posts.CreatedDate, users.UserName, users.PhotoURL FROM posts JOIN users on posts.UserId = users.UserId;
+
+SELECT p.UserId, p.Content, p.CreatedDate, u.UserName, u.PhotoURL FROM posts p JOIN users u ON p.UserId = u.UserId ORDER BY CreatedDate DESC;
+
+SELECT p.PostId, p.UserId, Content, CreatedDate, UserName, PhotoURL FROM posts p INNER JOIN users u ON p.UserId = u.UserId ORDER BY CreatedDate DESC;

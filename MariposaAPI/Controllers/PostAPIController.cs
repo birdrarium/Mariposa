@@ -8,8 +8,6 @@ using MySqlConnector;
 using MariposaAPI.Models;
 using Microsoft.Extensions.Logging;
 
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace MariposaAPI.Controllers
 {
     [ApiController]
@@ -17,7 +15,6 @@ namespace MariposaAPI.Controllers
     public class PostAPIController : Controller
     {
         private readonly MySqlConnection database;
-        //private readonly ILogger<PostAPIController> _logger;
 
         public PostAPIController(MySqlConnection mySql)
         {
@@ -28,11 +25,18 @@ namespace MariposaAPI.Controllers
         public List<PostAPIModel> GetAll()
         {
             var metadata = new List<PostAPIModel>();
-            //var query = "SELECT posts.UserId, posts.Content, posts.CreatedDate, users.UserName, users.PhotoURL FROM posts JOIN users on posts.UserId = users.UserId;";
-            var query = "SELECT * FROM posts;";
+            var query = @"SELECT p.PostId, p.UserId, p.Content, p.CreatedDate, u.UserId, u.UserName, u.PhotoURL FROM posts p INNER JOIN users u ON p.UserId = u.UserId ORDER BY CreatedDate DESC;";
+
             database.Open();
-            metadata = database.Query<PostAPIModel>(query).ToList();
+
+             var result = database.Query<PostAPIModel, UserAPIModel, PostAPIModel>(query, map: (post, user) => {
+                post.UserModel = user;
+                metadata.Add(post);
+                return post;
+            }, splitOn: "UserId");
+
             database.Close();
+
             return metadata;
         }
 

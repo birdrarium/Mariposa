@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 namespace MariposaAPI.Models
 {
     public class UserAPIModel
@@ -7,7 +8,7 @@ namespace MariposaAPI.Models
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string PhotoURL { get; set; }
-
+        //public IList<PostAPIModel>? Posts { get; set; }
 
         public UserAPIModel(int userId, string userName, string photoUrl)
         {

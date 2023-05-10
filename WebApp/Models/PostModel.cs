@@ -8,8 +8,8 @@ namespace WebApp.Models
 
         public int PostId { get; set; }
         public int UserId { get; set; }
-        public UserModel userModel { get; set; }
-
+        public UserModel UserModel { get; set; }
+        public string UserName { get; private set; }
         [JsonProperty("CreatedDate")]
         public string _createdDate { get; set; }
         public string[]? Images { get; set; }
@@ -20,6 +20,7 @@ namespace WebApp.Models
 
         public PostModel()
         {
+            //this.UserName = UserModel.UserName;
         }
     }
 }
